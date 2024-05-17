@@ -1,0 +1,246 @@
+.tweetBox {
+    padding-bottom: 1rem;
+    border-bottom: .8rem solid var(--twittie-background);
+    padding-right: 1rem;
+
+}
+
+.tweetBox>form {
+    display: flex;
+    flex-direction: column;
+}
+
+.tweetBox__wrapperInput{
+    display:flex;
+    flex-direction:row
+}
+
+.tweetBox__ava{
+    padding: 2rem;
+}
+
+.tweetBox__input {
+    display:flex;
+    flex-direction:column; 
+    flex:1;
+    margin-left: 1rem;    
+}
+
+.tweetBox__input-image{
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.tweetBox__input-image::after{
+    display: block;
+    content: '';
+    padding-top: 56.25%;
+}
+
+.tweetBox__input-image>img{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 2rem;
+
+    opacity: 1; 
+    transition: opacity 1.5s ease-out;
+}
+
+.tweetBox__input> input{
+    flex: 1 1;
+    border: none;
+    font-size: 1.6rem;
+    outline: none;
+    padding: 3rem 0 2rem 0;
+}
+
+.tweetBox__input>textarea{
+    overflow:hidden;
+    padding: 3rem 0 2rem 0;
+    max-width: 100%;
+    font-size:1.6rem;
+    resize: none;
+    display:flex;
+    border: none;
+    outline: none;
+    font-family: inherit !important;
+    font-weight: 499 !important;
+    color: inherit !important;
+}
+
+.tweetBox__imageInput{
+    border: none;
+    padding: 1rem;
+}
+
+.tweetBox__tweetButton{
+    background-color: var(--twittie-color) !important;
+    border: none !important;
+    color: white !important;
+    font-weight: 900 !important;
+    text-transform: inherit !important;
+    border-radius: 3rem !important;
+    height: 4rem;
+    width: 8rem;
+    margin-top: 2rem !important;  
+    margin-left: auto !important;
+}
+
+.cancelIcon{
+    font-size: 3.5rem !important;
+    position: absolute;
+    top: .5rem;
+    left: .5rem;
+    z-index: 2;
+    cursor: pointer !important;
+}
+
+.cancelIcon:hover{
+    opacity: 0.6;    
+}
+
+.editImage{
+    background-color: black !important;
+    border: none !important;
+    color: white !important;
+    font-weight: 500 !important;
+    text-transform: inherit !important;
+    border-radius: 3rem !important;
+    height: 3rem;
+    position: absolute !important;
+    right: .8rem;
+    top: .7rem;
+    font-size: 1.6rem !important;
+}
+
+.editImage:hover{
+    opacity: 0.6;
+}
+
+.tweetBox__input-actions{
+    display:flex !important;
+    flex-direction:row !important;
+}
+
+.tweetBox__input-icons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex:1;
+    margin-left: -.8rem;
+}
+
+.tweetBox__input-icons>div{
+    padding: .6rem;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.tweetBox__input-icons>div:nth-child(3){
+    transform: rotate(90deg);
+}
+
+.tweetBox__input-icons>div:hover{
+    background-color: #f5f8fa;
+}
+
+.tweetBox__input-icons .MuiSvgIcon-root{
+    font-size: 2rem;
+    color: var(--twittie-color);
+    cursor: pointer;
+}
+
+/* .tweetBox__popover>.MuiPopover-paper{
+    border-radius: 2rem !important;
+} */
+
+.error-message {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+.warning-message {
+    color: orange;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+}
+.custom-alert {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 0.25rem;
+    padding: 0.75rem 1.25rem;
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.custom-alert .close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    color: #721c24;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.custom-alert .close:hover {
+    color: #c00;
+}
+
+.radio-container {
+    margin-top: 1rem;
+}
+
+.radio-container label {
+    display: block;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+}
+
+.radio-container input[type="radio"] {
+    display: none;
+}
+
+.custom-radio {
+    position: relative;
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 2px solid #333;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.custom-radio::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background-color: #333;
+    opacity: 0;
+}
+
+.radio-container input[type="radio"]:checked + .custom-radio::after {
+    opacity: 1;
+    background-color: var(--twittie-color); /* Color when checked */
+
+}
+
+
+@media screen and (max-width: 500px){
+    .tweetBox {
+        max-width: 90vw;
+    }
+}

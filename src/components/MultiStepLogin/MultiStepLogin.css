@@ -1,0 +1,809 @@
+@import url("https://fonts.multi-form-googleapis.multi-form-com/css?family=Poppins:400,500,600,700&display=swap");
+/* * {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    font-family: "Poppins", sans-serif;
+} */
+:root {
+    --primary: #333;
+    --secondary: #333;
+    --errorColor: red;
+    --stepNumber: 6;
+    --containerWidth: 600px;
+    --bgColor: #333;
+    --inputBorderColor: lightgray;
+    --stepActive: #0000FF;
+
+}
+
+
+/* ======================================================================================================== */
+/* ======================================================================================================== */
+/* ======================================================================================================== */
+/* ======================================================================================================== */
+
+
+
+.multi-form-signup-section{
+    position: relative;
+    min-height: 100vh;
+    background: var(--twittie-background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* padding: 2rem; */
+
+    width: 100vw; 
+}
+
+.multi-form-signup-section .multi-form-signup-container{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    /* box-shadow: 0 1.5rem 5rem rgba(0,0,0,0.1); */
+    overflow: hidden;
+}
+
+.multi-form-signup-section .multi-form-signup-container .user{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.multi-form-signup-section .multi-form-signup-container .user .imgBc{
+    position: relative;
+    width: 80%;
+    height: 100%;
+    background: #ff0;
+    transition: .5s;
+}
+
+
+.multi-form-signup-section .multi-form-signup-container .user .imgBc img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+}
+
+.multi-form-signup-section .multi-form-signup-container .user .formBc{
+    position: relative;
+    width: 50%;
+    height: 100%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 4rem;
+    transition: .5s;
+}
+
+.multi-form-signup-section .multi-form-signup-container .user .formBc form h2{
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .2rem;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 1rem;
+    color: var(--twiitie-light);
+}
+
+.multi-form-signup-section .multi-form-signup-container .user .formBc form input{
+    position: relative;
+    width: -webkit-fill-available;
+    padding: 1rem 2rem;
+    background: var(--twittie-background-2);
+    color: #333;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    margin: .8rem 0;
+    font-size: 1.4rem;
+    letter-spacing: .1rem;
+    font-weight: 300;
+    border-radius: 2rem;
+}
+
+.multi-form-signup-section .multi-form-signup-container .user .formBc form button{
+    position: relative;
+    width: -webkit-fill-available;
+    padding: 1rem 2rem;
+    background: var(--twittie-background-2);
+    color: #333;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    margin: .8rem 0;
+    font-size: 1.4rem;
+    letter-spacing: .1rem;
+    font-weight: 300;
+    border-radius: 2rem;    
+
+
+    max-width: 10rem;
+    background: var(--twittie-color);
+    color: white;
+    cursor: pointer;
+    font-size: 1.4rem;
+    font-weight: 500;
+    letter-spacing: .1rem;
+    transition: .5s;
+    border-radius: 2rem;
+
+
+}
+
+
+.multi-form-signup-section .multi-form-signup-container .user .formBc form input[type='submit']{
+    max-width: 10rem;
+    background: var(--twittie-color);
+    color: white;
+    cursor: pointer;
+    font-size: 1.4rem;
+    font-weight: 500;
+    letter-spacing: .1rem;
+    transition: .5s;
+    border-radius: 2rem;
+}
+
+
+.multi-form-signup-section .multi-form-signup-container .user .formBc form .signup{
+    position: relative;
+    margin-top: 2rem;
+    font-size: 1.2rem;
+    letter-spacing: .1rem;
+    color: #555;
+    text-transform: uppercase;
+    font-weight: 300;
+}
+
+
+.multi-form-signup-section .multi-form-signup-container .user .formBc form .signup span{
+    font-weight: 600;
+    text-decoration: none;
+
+}
+
+.multi-form-signup-section .multi-form-signup-container .signupBc {
+    pointer-events: none;
+}
+
+.multi-form-signup-section .multi-form-signup-container.active .signupBc {
+    pointer-events: initial;
+}
+
+.multi-form-signup-section .multi-form-signup-container .signupBc .formBc{
+    left: 100%;
+}
+
+.multi-form-signup-section .multi-form-signup-container.active .signupBc .formBc{
+    left: 0;
+}
+
+.multi-form-signup-section .multi-form-signup-container .signupBc .imgBc{
+    left: -100%;
+}
+
+.multi-form-signup-section .multi-form-signup-container.active .signupBc .imgBc{
+    left: 0;
+}
+
+
+
+@media (max-width: 991px){
+    .multi-form-signup-section .multi-form-signup-container .imgBc{
+        max-width: 40rem;
+    }
+}
+
+
+
+/* ======================================================================================================== */
+/* ======================================================================================================== */
+/* ======================================================================================================== */
+/* ======================================================================================================== */
+.multi-form-error{
+    color:var(--errorColor)
+}
+
+.multi-form-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+    
+
+::selection {
+    color: #fff;
+    background: var(--primary);
+}
+.multi-form-container {
+    width: var(--containerWidth);
+    background: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 50px 35px 10px 35px;
+}
+.multi-form-container header {
+    font-size: 35px;
+    font-weight: 600;
+    margin: 0 0 30px 0;
+}
+.multi-form-container .multi-form-form-outer {
+    width: 100%;
+    overflow: hidden;
+}
+.multi-form-container .multi-form-form-outer form {
+    display: flex;
+    width: calc(100% * var(--stepNumber));
+}
+
+.multi-form-logo {
+    width: 100px;
+    margin-bottom: 15px;
+    border-radius:50%
+}
+
+.multi-form-form-outer form .multi-form-page {
+    width: calc(100% / var(--stepNumber));
+    transition: margin-left 0.multi-form-3s ease-in-out;
+}
+.multi-form-form-outer form .multi-form-page .multi-form-title {
+    text-align: left;
+    font-size: 25px;
+    font-weight: 500;
+}
+.multi-form-form-outer form .multi-form-page .multi-form-field {
+    width: var(--containerWidth);
+    height: 45px;
+    /* margin: 45px 0; */
+    margin-top:45px;
+    display: flex;
+    position: relative;
+}
+form .multi-form-page .multi-form-field .multi-form-label {
+    position: absolute;
+    top: -30px;
+    font-weight: 500;
+}
+form .multi-form-page .multi-form-field input {
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    border: 1px solid var(--inputBorderColor);
+    border-radius: 5px;
+    padding-left: 15px;
+    margin: 0 1px;
+    font-size: 18px;
+    transition: border-color 150ms ease;
+    
+}
+form .multi-form-page .multi-form-field input.multi-form-invalid-input {
+    border-color: var(--errorColor);
+}
+form .multi-form-page .multi-form-field select {
+    width: 100%;
+    padding-left: 10px;
+    font-size: 17px;
+    font-weight: 500;
+}
+form .multi-form-page .multi-form-field button {
+    width: 100%;
+    height: calc(100% + 5px);
+    border: none;
+    margin-top: -20px;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: 0.multi-form-5s ease;
+    background: #0949ab;
+
+}
+
+
+form .multi-form-page .multi-form-btns button {
+    margin-top: -20px !important;
+}
+form .multi-form-page .multi-form-btns button.multi-form-prev {
+    margin-right: 3px;
+    font-size: 17px;
+    background: #4488f0;
+
+}
+form .multi-form-page .multi-form-btns button.multi-form-next {
+    margin-left: 3px;
+
+}
+form .multi-form-page .multi-form-field button:hover {
+    background: #000;
+}
+.multi-form-container .multi-form-progress-bar {
+    display: flex;
+    margin: 40px 0;
+    user-select: none;
+}
+.multi-form-container .multi-form-progress-bar .multi-form-step {
+    text-align: center;
+    width: 100%;
+    position: relative;
+}
+.multi-form-container .multi-form-progress-bar .multi-form-step p {
+    font-weight: 500;
+    font-size: 18px;
+    color: #000;
+    margin-bottom: 8px;
+}
+.multi-form-progress-bar .multi-form-step .multi-form-bullet {
+    height: 25px;
+    width: 25px;
+    display: inline-block;
+    border-radius: 50%;
+    position: relative;
+    transition: 0.multi-form-2s;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 25px;
+}
+.multi-form-progress-bar .multi-form-step .multi-form-bullet.multi-form-active {
+    /* border-color: var(--primary);
+    background: var(--primary); */
+    border-color: var(--stepActive);
+    background: var(--stepActive);
+
+    
+}
+.multi-form-progress-bar .multi-form-step .multi-form-bullet span {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.multi-form-progress-bar .multi-form-step .multi-form-bullet.multi-form-active span {
+    display: none;
+}
+.multi-form-progress-bar .multi-form-step .multi-form-bullet:before,
+.multi-form-progress-bar .multi-form-step .multi-form-bullet:after {
+    position: absolute;
+    content: "";
+    bottom: 11px;
+    right: -51px;
+    height: 3px;
+    width: 44px;
+    background: #262626;
+}
+.multi-form-progress-bar .multi-form-step .multi-form-bullet.multi-form-active:after {
+    /* background: var(--primary); */
+    background: var(--stepActive);
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: animate 0.multi-form-3s linear forwards;
+}
+@keyframes animate {
+    100% {
+        transform: scaleX(1);
+    }
+}
+.multi-form-progress-bar .multi-form-step:last-child .multi-form-bullet:before,
+.multi-form-progress-bar .multi-form-step:last-child .multi-form-bullet:after {
+    display: none;
+}
+.multi-form-progress-bar .multi-form-step p.multi-form-active {
+    /* color: var(--primary); */
+    color: var(--stepActive);
+    transition: 0.multi-form-2s linear;
+}
+.multi-form-progress-bar .multi-form-step .multi-form-check {
+    position: absolute;
+    left: 50%;
+    top: 70%;
+    font-size: 15px;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+.multi-form-progress-bar .multi-form-step .multi-form-check.multi-form-active {
+    display: block;
+    /* color: #fff; */
+    color: var(--stepActive);
+    
+}
+
+@media screen and (max-width: 660px) {
+    :root {
+        --containerWidth: 400px;
+    }
+    .multi-form-progress-bar .multi-form-step p {
+        display: none;
+    }
+    .multi-form-progress-bar .multi-form-step .multi-form-bullet::after,
+    .multi-form-progress-bar .multi-form-step .multi-form-bullet::before {
+        display: none;
+
+    }
+    .multi-form-progress-bar .multi-form-step .multi-form-bullet {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .multi-form-progress-bar .multi-form-step .multi-form-check {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        font-size: 15px;
+        transform: translate(-50%, -50%);
+        display: none;
+    }
+    .multi-form-step {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+@media screen and (max-width: 490px) {
+    :root {
+        --containerWidth: 100%;
+    }
+    .multi-form-container {
+        box-sizing: border-box;
+        border-radius: 0;
+    }
+}
+
+
+.multi-form-section{
+    position: relative;
+    min-height: 100vh;
+    background: var(--twittie-background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* padding: 2rem; */
+
+    width: 100vw; 
+}
+
+
+.multi-form-section .multi-form-container{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    /* box-shadow: 0 1.5rem 5rem rgba(0,0,0,0.1); */
+    overflow: hidden;
+}
+
+.multi-form-section .multi-form-container .user{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.multi-form-section .multi-form-container .user .imgBc{
+    position: relative;
+    width: 50%;
+    height: 100%;
+    background: #ff0;
+    transition: .5s;
+}
+
+
+.multi-form-section .multi-form-container .user .imgBc img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+}
+
+.multi-form-section .multi-form-container .user .formBc{
+    position: relative;
+    width: 50%;
+    height: 100%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 4rem;
+    transition: .5s;
+}
+
+.multi-form-section .multi-form-container .user .formBc form h2{
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .2rem;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 1rem;
+    color: var(--twiitie-light);
+}
+
+.multi-form-section .multi-form-container .user .formBc form input{
+    position: relative;
+    width: -webkit-fill-available;
+    padding: 1rem 2rem;
+    background: var(--twittie-background-2);
+    color: #333;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    margin: .8rem 0;
+    font-size: 1.4rem;
+    letter-spacing: .1rem;
+    font-weight: 300;
+    border-radius: 2rem;
+}
+
+.multi-form-section .multi-form-container .user .formBc form button{
+    position: relative;
+    width: -webkit-fill-available;
+    padding: 1rem 2rem;
+    background: var(--twittie-background-2);
+    color: #333;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    margin: .8rem 0;
+    font-size: 1.4rem;
+    letter-spacing: .1rem;
+    font-weight: 300;
+    border-radius: 2rem;    
+
+
+    max-width: 10rem;
+    background: var(--twittie-color);
+    color: white;
+    cursor: pointer;
+    font-size: 1.4rem;
+    font-weight: 500;
+    letter-spacing: .1rem;
+    transition: .5s;
+    border-radius: 2rem;
+
+
+}
+
+
+.multi-form-section .multi-form-container .user .formBc form input[type='submit']{
+    max-width: 10rem;
+    background: var(--twittie-color);
+    color: white;
+    cursor: pointer;
+    font-size: 1.4rem;
+    font-weight: 500;
+    letter-spacing: .1rem;
+    transition: .5s;
+    border-radius: 2rem;
+}
+
+
+.multi-form-section .multi-form-container .user .formBc form .signup{
+    position: relative;
+    margin-top: 2rem;
+    font-size: 1.2rem;
+    letter-spacing: .1rem;
+    color: #555;
+    text-transform: uppercase;
+    font-weight: 300;
+}
+
+.multi-form-section .multi-form-container .user .formBc form .signup span{
+    font-weight: 600;
+    text-decoration: none;
+
+}
+
+.multi-form-section .multi-form-container .signupBc {
+    pointer-events: none;
+}
+
+.multi-form-section .multi-form-container.active .signupBc {
+    pointer-events: initial;
+}
+
+.multi-form-section .multi-form-container .signupBc .formBc{
+    left: 100%;
+}
+
+.multi-form-section .multi-form-container.active .signupBc .formBc{
+    left: 0;
+}
+
+.multi-form-section .multi-form-container .signupBc .imgBc{
+    left: -100%;
+}
+
+.multi-form-section .multi-form-container.active .signupBc .imgBc{
+    left: 0;
+}
+
+.error{
+    position: relative;
+    width: -webkit-fill-available;
+    padding: 1rem 2rem;
+    color: red;
+    border: 0.2rem solid red;
+    outline: none;
+    box-shadow: none;
+    margin: .8rem 0;
+    font-size: 1.4rem;
+    letter-spacing: .1rem;
+    font-weight: 300;
+    border-radius: 2rem;  
+}
+
+@media (max-width: 991px){
+    .multi-form-section .multi-form-container .imgBc{
+        max-width: 40rem;
+    }
+}
+
+.signup{
+    position: relative;
+    margin-top: 2rem;
+    font-size: 1.2rem;
+    letter-spacing: .1rem;
+    /* color: #555; */
+    text-transform: uppercase;
+    font-weight: 300;
+}
+
+.signup span{
+    font-weight: 600;
+    text-decoration: none;
+    /* color: var(----stepActive) */
+    color: #0000FF;  
+}
+
+.signup span:hover{
+    font-weight: 800;
+    text-decoration: none;
+    color: #0000FF;
+}
+
+.feed__loader{
+    width: 100%;
+    padding-top: 2rem;
+    display: flex;
+    justify-content: center !important;
+}
+
+.multi-form-bullet.bullet-completed {
+    color: var(--twittie-color);
+    background: var(--twittie-color);
+    border: 2px solid #50b7f5;
+}
+
+.multi-form-bullet.regular {
+    border: 2px solid #000;
+}
+
+.multi-form-progress-bar .multi-form-step .multi-form-bullet:before, .multi-form-progress-bar .multi-form-step .multi-form-bullet.bullet-completed:before {
+    background:var(--twittie-color);
+}
+
+.multi-form-progress-bar .multi-form-step .multi-form-bullet:before, .multi-form-progress-bar .multi-form-step .multi-form-bullet.bullet-completed:after {
+    background:var(--twittie-color);
+}
+
+
+/* The alert message box */
+.multi-form-alert {
+    padding: 20px;
+    color: white;
+    margin-bottom: 15px;
+}
+ 
+.multi-form-alert .error{
+    background-color: #f44336; /* Red */
+
+}
+
+.multi-form-alert .success{
+    background-color: #0c6624; /* Green */
+}
+  /* The close button */
+.multi-form-closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+  
+  /* When moving the mouse over the close button */
+.multi-form-closebtn:hover {
+    color: black;
+}
+
+
+
+/* ======================================================================================================== */
+/* ======================================================================================================== */
+/* ======================================================================================================== */
+/* ======================================================================================================== */
+    
+
+
+
+    /* xs */
+    @media (max-width: 576px) {
+        .imgBc{
+            display: none;
+        }
+
+        .multi-form-signup-section .multi-form-signup-container .user {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+    }
+  
+    /* sm  */
+    @media (min-width: 576px) and (max-width: 768px) {
+        .imgBc{
+            display: none;
+        }
+
+        .multi-form-signup-section .multi-form-signup-container .user {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+  
+    /* md  */
+    @media (min-width: 768px) and (max-width: 992px) {
+    .imgBc{
+        display: none;
+    }
+
+    .multi-form-container {
+        z-index:5;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    }
+
+    .multi-form-signup-section .multi-form-signup-container .user {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    }
+  

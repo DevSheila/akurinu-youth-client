@@ -1,0 +1,59 @@
+.sidebarOption{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #403f3f;
+    text-decoration: none;
+}
+/* 
+.sidebarOption:hover{
+    background-color: var(--twittie-hover);
+    border-radius: 3rem;
+    color: var(--twittie-color);
+    transition: color 100ms ease-out;
+}
+
+.sidebar__active{
+    color: var(--twittie-color);
+} */
+
+
+.sidebarOption:hover{
+    background-color: var(--twittie-hover);
+    border-radius: 10px;
+    /* color: var(--twittie-color); */
+    transition: color 100ms ease-out;
+}
+
+.sidebar__active{
+    background-color: var(--twittie-darker-color);
+    border-radius: 10px;
+    /* color: var(--twittie-color); */
+    color: white;
+    transition: color 100ms ease-out;
+}
+
+
+.sidebarOption>h2{
+    /* font-weight: 700; */
+    font-size: 1.5rem;
+    margin-right: 2rem;
+}
+
+.sidebarOption > .MuiSvgIcon-root {
+    font-size: 2.4rem;
+    padding: 1.4rem 1.4rem 1.4rem 2rem;
+}
+
+
+@media screen and (max-width: 1282px){
+    .sidebarOption>h2{
+        display: none;
+    }
+    .sidebarOption > .MuiSvgIcon-root{
+        margin-left: auto;
+    }
+    .sidebarOption{
+        width: fit-content;
+    }
+}

@@ -1,0 +1,68 @@
+.modal-content-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5); /* semi-transparent background */
+    animation:fadeIn 2.0s ;
+}
+
+.modalContent {
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    color: #000;
+    text-align: center;
+    border-radius: 20px;
+    padding: 30px 30px 70px;
+}
+
+.modalContent button.close {
+    width: 30px;
+    font-size: 20px;
+    color: #c0c5cb;
+    align-self: flex-end;
+    background-color: transparent;
+    border: none;
+    margin-bottom: 10px;
+}
+.modalContent img {
+    width: 82px;
+    margin-bottom: 15px;
+    border-radius:50%
+}
+.modalContent p {
+    margin-bottom: 40px;
+    font-size: 18px;
+}
+
+
+.modalContent button.accept{
+  flex: 1; 
+  background-color: var(--twittie-darker-color);
+  border: none;
+  border-radius: 5px;
+  padding: 14px;
+  font-size: 16px;
+  color: #ffffff;
+  box-shadow: 0px 6px 18px -5px rgb(73, 14, 70);
+}
+
+.loader{
+    width: 100%;
+    padding-top: 2rem;
+    display: flex;
+    justify-content: center !important;
+}
+
+.google-logo {
+    width: 5%; /* Adjust size as needed */
+    height: 5%; /* Adjust size as needed */
+    margin-right: 10px; /* Adjust spacing between logo and text */
+  }

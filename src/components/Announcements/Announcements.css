@@ -1,0 +1,86 @@
+
+/* .announcement-card-section {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0 auto;
+    padding-left: 100px;
+    padding-right: 100px;
+    overflow-x: auto; 
+    white-space: nowrap; 
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+    margin: 20px;
+
+} */
+
+.announcement-card-section{
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: center;
+    overflow-x: auto; 
+    white-space: nowrap; 
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+    margin: 20px;
+
+}
+
+
+.announcement-card-section::-webkit-scrollbar {
+    display: none; /* Hide the scrollbar for WebKit browsers (Chrome, Safari, etc.) */
+}
+
+
+/* .card-container {
+    overflow-x: auto; 
+    white-space: nowrap; 
+} */
+
+/* .card-section {
+    display: inline-block; 
+    vertical-align: top; 
+} */
+
+
+
+  /* Large devices (lg) */
+  @media only screen and (min-width: 1200px) {
+    .announcement-card-section{
+        /* Your styles for large devices here */
+        max-width: 712px;
+    }
+}
+
+/* Medium devices (md) */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .announcement-card-section{
+        /* Your styles for medium devices here */
+        max-width: 712px;
+
+
+    }
+}
+
+/* Small devices (sm) */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .announcement-card-section{
+        /* Your styles for small devices here */
+        max-width: 850px;
+
+    }
+}
+
+/* Extra small devices (xs) */
+@media only screen and (max-width: 767px) {
+    .announcement-card-section{
+        /* Your styles for extra small devices here */
+        max-width: 630px;
+
+    }
+}
+
+
+
