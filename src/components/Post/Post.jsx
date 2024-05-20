@@ -121,8 +121,8 @@ const Post = forwardRef(({
                   <div className="post__headerText">
                      <h3>{displayName} {' '}
                         <span className='post__headerSpecial'> 
-                              {verified && <VerifiedUserIcon className='post__badge'/>} 
-                              @{`${username} . ${timestamp && util.timeDiff(date)}`}
+                              {/* {verified && <VerifiedUserIcon className='post__badge'/>} 
+                              @{`${username} . ${timestamp && util.timeDiff(date)}`} */}
                         </span>
                      </h3>
                      <div className="post__headerExpandIcon" aria-describedby={id} variant="contained" onClick={onClickExpand } >

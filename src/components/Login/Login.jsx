@@ -236,7 +236,7 @@ const Login = () => {
       } else {
         // Check if email already exists
         try {
-          const response = await axios.get(`http://127.0.0.1:8080/api/members/email/${formData.email}`);
+          const response = await axios.get(`https://api.akurinuyouth.com/api/members/email/${formData.email}`);
           console.log("email",response)
           if (response.data) {
             isValid = false;
@@ -347,7 +347,7 @@ const Login = () => {
     try {
       console.log("memberData",memberData);
 
-      const response = await axios.post('http://127.0.0.1:8080/api/members', memberData , {
+      const response = await axios.post('https://api.akurinuyouth.com/api/members', memberData , {
         headers: {
           'Content-Type': 'application/json',
         }

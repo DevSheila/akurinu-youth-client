@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import {useParams} from 'react-router'
+import {useHistory} from 'react-router'
 
 import CloseIcon from '@material-ui/icons/Close'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
@@ -27,6 +28,7 @@ const ProfileTheme = ({posts}) => {
 
     const [{user}] = useStateValue()
     const {username} = useParams()
+    const history = useHistory()
 
     const [updatedProfileState, setUpdatedProfileState] = useState({})
     const [finalPhoto, setFinalPhoto] = useState(null)
@@ -47,6 +49,13 @@ const ProfileTheme = ({posts}) => {
         setOpenImage(true)        
     }
     const handleCloseImage = () => setOpenImage(false)
+
+    const signout = () => {
+        localStorage.clear()
+        // window.location.push('/')
+        history.push('/')
+        window.location.reload()
+    }
 
     useEffect(() => {
       db.collection('users').where('username', '==', username).onSnapshot(snapshot=>{
@@ -159,12 +168,13 @@ const ProfileTheme = ({posts}) => {
 
                 <div className="infoWrapper">
                     <div className="userProfile__actions">
-                        <div className="moreWrapper">
+                        <div className="moreWrapper" onClick={signout}>
                             <MoreHorizIcon />
                         </div>
-                        { !isMe && <div className="mailWrapper">
+
+                        {/* { !isMe && <div className="mailWrapper">
                             <MailOutlineIcon />
-                        </div> }                     
+                        </div> }                      */}
                         { isMe? 
                         <div className="followWrapper" onClick={()=>setIsOpenModal(true)}>
                             Edit Profile
