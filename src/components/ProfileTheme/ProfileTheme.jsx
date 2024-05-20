@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import {useParams} from 'react-router'
 import {useHistory} from 'react-router'
+import Loader from '../../elements/Loader/Loader';
 
 import CloseIcon from '@material-ui/icons/Close'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
@@ -158,6 +159,8 @@ const ProfileTheme = ({posts}) => {
                 onClose={handleCloseImage}
                 imgsrc={imgsrc}
             />
+
+            {loading && <div className="feed__loader"><Loader /></div>}
 
             <div className='userProfile'>
                 <div className="userProfile__theme" style={{backgroundImage: `url(${profile && profile.wallpaper})`}} >
