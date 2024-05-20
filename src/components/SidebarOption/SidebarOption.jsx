@@ -30,6 +30,7 @@ const SidebarOptions = ({active, text, Icon, onClick}) => {
                 </NavLink>
         )}
         </>
+        
     )
 }
 

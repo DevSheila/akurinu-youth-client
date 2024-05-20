@@ -29,9 +29,9 @@
 }
 
 @media screen and (max-width: 1282px){
-    .sidebarOption>h2{
+    /* .sidebarOption>h2{
         display: none;
-    }
+    } */
     .sidebarOption > .MuiSvgIcon-root{
         margin-left: auto;
     }
