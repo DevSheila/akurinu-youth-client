@@ -422,8 +422,16 @@ const Login = () => {
       });
       console.log(response);
 
+      if(response.status ==  200){
+        return true;
+      }else{
+        return false
+      }
+
     } catch (error) {
       console.error('There was an error!', error);
+
+      return false
     }
 
   };
@@ -504,10 +512,17 @@ const Login = () => {
           "visibility_status": 1,
         }
 
-        postMemberToMySQL(memberData);
-        setSignupStatus("success");
-        setSignupMessage("Signup successful!");
-        setIsLogin(true)
+        let userResult= await postMemberToMySQL(memberData);
+
+        if(userResult){
+          setSignupStatus("success");
+          setSignupMessage("Signup successful!");
+          setIsLogin(true)
+        }else{
+          setSignupStatus("error");
+      setSignupMessage("Signup failed. Please try again.");
+        }
+
         // redirectTo()
 
     } catch (error) {
