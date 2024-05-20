@@ -23,7 +23,7 @@ const BottomNav = () => {
           <NavLink exact to='/' activeClassName='bottomNav__active'><HomeIcon /><h2 className="bottomNav__text">Home</h2></NavLink>
           <NavLink to={`/${profileLink}`} activeClassName='bottomNav__active'><PermIdentityIcon /><h2 className="bottomNav__text">Profile</h2></NavLink>
           <a href="https://akurinuyouth.com/portal" activeClassName='bottomNav__active' target='_blank' rel='noopener noreferrer'><PanoramaFishEyeIcon /> <h2 className="bottomNav__text">Portal</h2></a>
-          <div onClick={signout} activeClassName='bottomNav__active'><LogoutIcon /><h2 className="bottomNav__text">Logout</h2></div>
+          {/* <div onClick={signout} activeClassName='bottomNav__active'><LogoutIcon /><h2 className="bottomNav__text">Logout</h2></div> */}
        
        </nav>
     </div>
