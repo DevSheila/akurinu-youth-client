@@ -46,8 +46,8 @@ const ThreadComment = forwardRef(({
    const id = open ? 'post-popover' : undefined
 
    const [{user}] = useStateValue()
-   const [profile, setProfile] = useState({id:'',displayName:'', photoURL: '', verified: false, username: ''})
-   const {displayName, username, photoURL, verified} = profile
+   const [profile, setProfile] = useState({id:'',displayName:'', userType:'', photoURL: '', verified: false, username: ''})
+   const {displayName, username, photoURL, verified ,userType} = profile
 
    useEffect(() => {
       db.collection('users').doc(senderId).onSnapshot(snapshot=>{
@@ -70,7 +70,9 @@ const ThreadComment = forwardRef(({
                   <div className="post__headerText">
                      <h3>{displayName} {' '}
                         <span className='post__headerSpecial'> 
-                            {verified && <VerifiedUserIcon className='post__badge'/>} 
+                            {/* {verified && <VerifiedUserIcon className='post__badge'/>}  */}
+                        {(userType === 'super' || userType === 'admin') && <VerifiedUserIcon className='post__badge'/>} 
+
                             @{`${username} . ${timestamp && util.timeDiff(date)}`}
                         </span>
                      </h3>

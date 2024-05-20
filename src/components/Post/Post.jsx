@@ -9,6 +9,7 @@ import Popover from '@material-ui/core/Popover'
 import Modal from '../../elements/Modal/Modal'
 import util from '../../helpers/timeDifference'
 import {convertTimestampToLocaleString} from '../../helpers/convertTimestampToLocaleString'
+import {Link} from 'react-router-dom'
 
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser'
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline'
@@ -52,9 +53,9 @@ const Post = forwardRef(({
    const [isOpenModal, setIsOpenModal] = useState(false)
 
    const [{user}] = useStateValue()
-   const [profile, setProfile] = useState({id:'',displayName:'', photoURL: '', verified: false, username: '', followers:[], following:[]})
+   const [profile, setProfile] = useState({id:'',displayName:'',userType:'', photoURL: '', verified: false, username: '', followers:[], following:[]})
    const [ownProfile, setOwnProfile] = useState(null)
-   const {displayName, username, photoURL, verified} = profile
+   const {displayName, username, photoURL, verified,userType} = profile
 
    const [comments, setComments] = useState([])
 
@@ -114,15 +115,16 @@ const Post = forwardRef(({
 
          <div className='post' ref={ref}>
             <div className="post__avatar">
-               <Avatar src={photoURL} />
+            <Link to={displayName ? `/profile/${displayName}` : `/notfound`}><Avatar src={photoURL} /></Link>
             </div>
             <div className="post__body">
                <div className="post__header">
                   <div className="post__headerText">
                      <h3>{displayName} {' '}
                         <span className='post__headerSpecial'> 
-                              {/* {verified && <VerifiedUserIcon className='post__badge'/>} 
-                              @{`${username} . ${timestamp && util.timeDiff(date)}`} */}
+                              {/* {verified && <VerifiedUserIcon className='post__badge'/>}  */}
+                              {(userType === 'super' || userType === 'admin') && <VerifiedUserIcon className='post__badge'/>} 
+                              @{`${username} . ${timestamp && util.timeDiff(date)}`}
                         </span>
                      </h3>
                      <div className="post__headerExpandIcon" aria-describedby={id} variant="contained" onClick={onClickExpand } >
@@ -145,8 +147,10 @@ const Post = forwardRef(({
                         }}
                      >
                         <ul className="post__expandList">
-                        {
-                           senderId === user.id?
+
+
+                        {(senderId === user.id || user.userType === 'super') ?
+
                            <>
                               <li onClick={()=>deletePost(postId)}>
                                  <div className='delete'><DeleteOutlineIcon /></div><h3 className="delete">Delete</h3>

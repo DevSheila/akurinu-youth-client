@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import {useParams} from 'react-router'
+import {useHistory} from 'react-router'
 
 import CloseIcon from '@material-ui/icons/Close'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
@@ -14,6 +15,7 @@ import ModalImage from '../../elements/Modal/ModalImage'
 import Spinner from '../../elements/Spinner/Spinner'
 import EditProfile from '../EditProfile/EditProfile'
 import FollowingEquality from '../FollowingEquality/FollowingEquality.jsx'
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 
 import db from '../../firebase'
 import postToCloudinary from '../../helpers/postToCloudinary'
@@ -34,7 +36,7 @@ const ProfileTheme = ({posts}) => {
     const [isPhotoReady, setIsPhotoReady] = useState(false)
     const [isWallpaperReady, setIsWallpaperReady] = useState(false)
     const [isUpdating, setIsUpdating] = useState(false)
-
+    const history = useHistory()
     const [isOpenModal, setIsOpenModal] = useState(false)
     let isMe = (profile && profile.id) === user.id?true: false
 
@@ -48,6 +50,11 @@ const ProfileTheme = ({posts}) => {
     }
     const handleCloseImage = () => setOpenImage(false)
 
+    const signout = () => {
+        history.push('/logout')
+
+       
+    }
     useEffect(() => {
       db.collection('users').where('username', '==', username).onSnapshot(snapshot=>{
         setProfile(snapshot.docs.map(doc=>({
@@ -158,12 +165,21 @@ const ProfileTheme = ({posts}) => {
 
                 <div className="infoWrapper">
                     <div className="userProfile__actions">
+
+                        <div className="moreWrapper">
+                            <PowerSettingsNewIcon  onClick={signout}/>
+                        </div>
+                    
+                        {/* 
+
                         <div className="moreWrapper">
                             <MoreHorizIcon />
                         </div>
                         { !isMe && <div className="mailWrapper">
                             <MailOutlineIcon />
-                        </div> }                     
+                        </div> }
+
+                        */}
                         { isMe? 
                         <div className="followWrapper" onClick={()=>setIsOpenModal(true)}>
                             Edit Profile

@@ -37,8 +37,8 @@ const CommentPost = ({status, comments}) => {
     const [{user}] = useStateValue()
     const [originalPost, setOriginalPost] = useState(null)
     const [originalPostSender, setOriginalPostSender] = useState(null)
-    const [profile, setProfile] = useState({id:'',displayName:'', photoURL: '', verified: false, username: '', followers:[], following:[]})
-    const {displayName, username, photoURL, verified} = profile
+    const [profile, setProfile] = useState({id:'',displayName:'', photoURL: '', userType:'', verified: false, username: '', followers:[], following:[]})
+    const {displayName, username, photoURL, verified,userType} = profile
     const [ownProfile, setOwnProfile] = useState(null)
     const {
         commentAltText,
@@ -148,13 +148,14 @@ const CommentPost = ({status, comments}) => {
         <div className='statusPost'>
          <div className='post bottomWhited'>
             <div className="post__avatar">
-               <Avatar src={photoURL} />
+            <Link to={displayName ? `/profile/${displayName}` : `/notfound`}><Avatar src={photoURL} /></Link>
+
             </div>
             <div className="post__body">
                <div className="post__header">
                   <div className="post__headerText">
                      <div className="post__statusPostHeader">
-                        <h3>{displayName} {verified && <VerifiedUserIcon className='post__badge'/>} </h3>                    
+                        <h3>{displayName}{(userType === 'super' || userType === 'admin') && <VerifiedUserIcon className='post__badge'/>} </h3>                    
                         <span className='post__headerSpecial'> 
                             {username && `@${username} `} 
                         </span> 
@@ -179,8 +180,7 @@ const CommentPost = ({status, comments}) => {
                         }}
                      >
                         <ul className="post__expandList">
-                        {
-                           senderId === user.id?
+                        {(senderId === user.id || user.userType === 'super') ?
                            <>
                               <li onClick={()=>deleteMyComment(postId, commentId)}>
                                  <div className='delete'><DeleteOutlineIcon /></div><h3 className="delete">Delete</h3>
@@ -223,12 +223,12 @@ const CommentPost = ({status, comments}) => {
          <div className="statusPost__footer">
             <div className="post__footer">
                 <FooterIcon Icon={ChatBubbleOutlineIcon} value={comments.length} onClick={()=>setIsOpenModal(true)}/>
-                <FooterIcon Icon={RepeatIcon} value={0}/>
+                {/* <FooterIcon Icon={RepeatIcon} value={0}/> */}
                 <Like likes={likes} 
                       likeAction= {()=>likeComment(postId, commentId, user.id)}
                       unlikeAction = {()=>unlikeComment(postId, commentId,  user.id)}
                 />
-                <FooterIcon Icon={PublishIcon} value={0}/>
+                {/* <FooterIcon Icon={PublishIcon} value={0}/> */}
             </div>         
          </div>
 

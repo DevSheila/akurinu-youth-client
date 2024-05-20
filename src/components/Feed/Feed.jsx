@@ -85,6 +85,7 @@ const Feed = () => {
             mounted = false;
         };
     }, []);
+    
 
     // Filter posts based on search query
     useEffect(()=>{

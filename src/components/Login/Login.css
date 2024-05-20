@@ -30,9 +30,8 @@
 
 .login__section .login__container .user .imgBc{
     position: relative;
-    width: 50%;
+    width: 100%;
     height: 100%;
-    background: #ff0;
     transition: .5s;
 }
 
@@ -48,7 +47,7 @@
 
 .login__section .login__container .user .formBc{
     position: relative;
-    width: 50%;
+    width: 100%;
     height: 100%;
     background: white;
     display: flex;

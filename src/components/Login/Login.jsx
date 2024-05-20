@@ -16,6 +16,8 @@ import counties from '../../helpers/counties.json';
 import fieldsOfExpertiseData from '../../helpers/fieldsOfExpertise.json';
 
 import axios from 'axios';
+
+
 const Login = () => {
     const [auth, setAuth] = useState(false)         // a state to change auth mode
     const [isLogin, setIsLogin] = useState(true)         // a state to change auth mode
@@ -113,40 +115,92 @@ const Login = () => {
         }
     }
 
-    const onSubmitLogin = (e) => {  
-        const {email, password} = loginState
-        e.preventDefault()
-        setLoading(true)
-        db.collection('users')
-            .where('email', '==', email)
-            .where('password','==', password)
-            .limit(1)
-            .get()
-            .then(snapshot=>{
-                if(!snapshot.docs.length){
-                    setError('Invalid credential')
-                return
-                } else {
-                    return {id: snapshot.docs[0].id, ...snapshot.docs[0].data()}
-                }
-            })
-            .then(res=>{
-                if(res){
-                    auths(res)
-                } else {
-                    setError('An error occured, please try again')
-                    setLoading(false)
-                }
-            })
-            .catch(error=>{
-                console.error(" login error",error)
-                setLoading(false)
-                setError('An error occured, please try again')
-                return
-            }
-        )
+    // 
 
-    }
+    // const onSubmitLogin = (e) => {  
+    //     const {email, password} = loginState
+    //     e.preventDefault()
+    //     setLoading(true)
+    //     db.collection('users')
+    //         .where('email', '==', email)
+    //         .where('password','==', password)
+    //         .limit(1)
+    //         .get()
+    //         .then(snapshot=>{
+    //             if(!snapshot.docs.length){
+    //                 setError('Invalid credential')
+    //             return
+    //             } else {
+    //                 return {id: snapshot.docs[0].id, ...snapshot.docs[0].data()}
+    //             }
+    //         })
+    //         .then(res=>{
+    //             if(res){
+    //                 auths(res)
+    //             } else {
+    //                 setError('An error occured, please try again')
+    //                 setLoading(false)
+    //             }
+    //         })
+    //         .catch(error=>{
+    //             console.error(" login error",error)
+    //             setLoading(false)
+    //             setError('An error occured, please try again')
+    //             return
+    //         }
+    //     )
+
+    // }
+
+    const onSubmitLogin = (e) => {
+      const { email, password } = loginState;
+      e.preventDefault();
+      setLoading(true);
+    
+      db.collection('users')
+        .where('email', '==', email)
+        .limit(1) // Limit to 1 document
+        .get()
+        .then(snapshot => {
+          if (!snapshot.docs.length) {
+            setError('Invalid credential');
+            return;
+          }
+    
+          // Return only the first user data
+          const user = snapshot.docs[0].data();
+          user.id = snapshot.docs[0].id; // Add id property for consistency
+    
+          return user;
+        })
+        .then(user => {
+          if (user) {
+
+            bcrypt.compare(password, user.password)
+            .then(function(success) {
+              if(success){
+                auths(user); // User object contains email, password (if needed), and id
+              }else{
+                setError('Invalid credential');
+              }
+            }).catch(error => {
+              setError('An error occurred, please try again');
+            });
+
+
+          } else {
+            setError('An error occurred, please try again');
+          }
+          setLoading(false);
+        })
+        .catch(error => {
+          console.error("login error", error);
+          setLoading(false);
+          setError('An error occurred, please try again');
+        });
+    };
+    
+    
 
     const preSignup = (e) => {
         e.preventDefault()
@@ -202,8 +256,7 @@ const Login = () => {
   
 
 
-    
-  // const validateInputs = (step) => {
+
     const validateInputs = async (step) => {
     let isValid = true;
     const errors = {};
@@ -298,6 +351,21 @@ const Login = () => {
       if (!formData.username.trim()) {
         isValid = false;
         errors.username = 'Username is required';
+        setLoading(false)
+      }else {
+        // Check if username already exists
+        try {
+          const usernameResposne = await axios.get(`https://api.akurinuyouth.com/api/members/username/${formData.username}`);
+          if (usernameResposne.data) {
+            isValid = false;
+            errors.username = 'Username already exists';
+          }
+        } catch (error) {
+        setLoading(false)
+
+          console.error('Error checking username existence:', error);
+          // Handle error if necessary
+        }
       }
 
       if (!formData.password.trim()) {
@@ -368,9 +436,12 @@ const Login = () => {
     e.preventDefault();
     setLoading(true)
     
-    if (validateInputs(currentStep)) {
-      alert('Your Form Successfully Signed up');
+    if (await validateInputs(currentStep)) {
       try {
+
+        // Hash the password before saving or sending
+        const hashedPassword = await bcrypt.hash(formData.password, 10);
+
 
         db.collection('users').add({
             bio:'',
@@ -381,7 +452,7 @@ const Login = () => {
             followers: [],
             following: [],
             joined: firebase.firestore.FieldValue.serverTimestamp(),
-            password: formData.password ,
+            password: hashedPassword ,
             photoURL: '',
             rooms: [],
             username: formData.username,
@@ -415,8 +486,6 @@ const Login = () => {
               confirmPassword: '',
             });
         })  
-         // Hash the password before saving or sending
-         const hashedPassword = await bcrypt.hash(formData.password, 10);
 
         let memberData =  {
           "userName": formData.username,
@@ -438,6 +507,7 @@ const Login = () => {
         postMemberToMySQL(memberData);
         setSignupStatus("success");
         setSignupMessage("Signup successful!");
+        setIsLogin(true)
         // redirectTo()
 
     } catch (error) {
@@ -472,9 +542,11 @@ const Login = () => {
                 <section className='multi-form-signup-section'>
                 <div className={`multi-form-signup-container`}>
                 <div className="user signinBc">
-                    <div className="imgBc"><img src={backdrop} alt='backdrop' /></div>
+                    <div className="imgBc">
+                      <img src={backdrop} alt='backdrop' />
+                    </div>
 
-                    {/* <div className="multi-form-body">  */}
+                    {/* <div className="multi-form-body">   */}
                     <div className="multi-form-container">
 
                             <img className="multi-form-logo" src="/akurinuyouth-logo.jpg" alt="modal-img" />

@@ -54,8 +54,8 @@ const Comment = forwardRef(({
    const id = open ? 'post-popover' : undefined
 
    const [{user}] = useStateValue()
-   const [profile, setProfile] = useState({id:'',displayName:'', photoURL: '', verified: false, username: '', followers: [], following:[]})
-   const {displayName, username, photoURL, verified} = profile
+   const [profile, setProfile] = useState({id:'',displayName:'', photoURL: '',userType:'', verified: false, username: '', followers: [], following:[]})
+   const {displayName, username, photoURL, verified ,userType } = profile
    const [ownProfile, setOwnProfile] = useState(null)
    const [originalPost, setOriginalPost] = useState(null)
    const [originalPostSender, setOriginalPostSender] = useState(null)
@@ -156,7 +156,8 @@ const Comment = forwardRef(({
                   <div className="post__headerText">
                      <h3>{displayName} {' '}
                         <span className='post__headerSpecial'> 
-                              {verified && <VerifiedUserIcon className='post__badge'/>} 
+                              {(userType === 'super' || userType === 'admin') && <VerifiedUserIcon className='post__badge'/>} 
+
                               @{`${username} . ${timestamp && util.timeDiff(date)}`}
                         </span>
                      </h3>
@@ -180,8 +181,7 @@ const Comment = forwardRef(({
                         }}
                      >
                         <ul className="post__expandList">
-                        {
-                           senderId === user.id?
+                        { (senderId === user.id || user.userType === 'super'  )?
                            <>
                               <li onClick={()=>deleteComment(postId, commentId)}>
                                  <div className='delete'><DeleteOutlineIcon /></div><h3 className="delete">Delete</h3>
@@ -225,13 +225,13 @@ const Comment = forwardRef(({
 
                <div className="post__footer">
                   <FooterIcon Icon={ChatBubbleOutlineIcon} value={threadComments.length} onClick={()=>setIsOpenModal(true)}/>
-                  <FooterIcon Icon={RepeatIcon} value={0}/>
+                  {/* <FooterIcon Icon={RepeatIcon} value={0}/> */}
                   <Like 
                      likes={likes} 
                      likeAction = {()=>likeComment(postId, commentId, user.id)}
                      unlikeAction = {()=> unlikeComment(postId, commentId, user.id)}
                   />
-                  <FooterIcon Icon={PublishIcon} value={0}/>
+                  {/* <FooterIcon Icon={PublishIcon} value={0}/> */}
                </div>
             </div>
 

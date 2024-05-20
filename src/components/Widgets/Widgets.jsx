@@ -1,28 +1,21 @@
-import React, {useState} from 'react'
-import WidgetsTrends from '../WidgetsTrends/WidgetsTrends'
-import WidgetsFollow from '../WidgetsFollow/WidgetsFollow'
-import SearchWidget from '../../elements/SearchWidget/SearchWidget'
-
-import './Widgets.css'
+import React, { useState } from 'react';
+import WidgetsFollow from '../WidgetsFollow/WidgetsFollow';
+import SearchWidget from '../../elements/SearchWidget/SearchWidget';
+import './Widgets.css';
 
 const Widgets = () => {
-   const [text, setText] = useState('')
+    const [text, setText] = useState('');
+
     return (
         <div className='widgets'>
-
-           <SearchWidget 
-               value={text} 
-               onChange = {(e)=>setText(e.target.value)}
-               onClick={()=>setText('')}           
-               placeholder='Search Users' 
+            <SearchWidget 
+                value={text} 
+                onChange={(e) => setText(e.target.value)}
+                placeholder='Search Users'
             />
-
-            {/* <WidgetsTrends /> */}
-            
-            <WidgetsFollow />
-
+            <WidgetsFollow searchText={text} />
         </div>
-    )
-}
+    );
+};
 
-export default Widgets
+export default Widgets;

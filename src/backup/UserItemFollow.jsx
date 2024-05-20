@@ -26,7 +26,7 @@ const UserItemFollow = ({ display, setUserAsAdmin, setUserAsRegular }) => {
   
     return (
     <>
-        {user.userType != 'admin' && (
+        {user.userType != 'super' && (
             <div>
             <Link to={display ? `/profile/${display.username}` : `/notfound`}>
                 <div className="userItemFollow--user__item">
@@ -62,7 +62,7 @@ const UserItemFollow = ({ display, setUserAsAdmin, setUserAsRegular }) => {
         )}
 
 
-        {user.userType === 'admin' && (
+        {user.userType === 'super' && (
 
             <div className="userItemFollow--user__item">
             <Avatar src={display && display.photoURL} />
@@ -72,7 +72,7 @@ const UserItemFollow = ({ display, setUserAsAdmin, setUserAsRegular }) => {
                 <span>{display && `@${display.username}`}</span>
             </div>
 
-            {display.userType === 'admin' ? (
+            {display.userType === 'super' ? (
                 <Button onClick={handleSetRegular}>Remove Admin</Button>
             ) : (
                 <Button onClick={handleSetAdmin}>Set Admin</Button>

@@ -40,16 +40,15 @@ const Widgets = () => {
     return (
         <div className='widgets'>
 
-           <SearchWidget 
-               value={text} 
-               onChange = {(e)=>setText(e.target.value)}
-               onClick={()=>setText('')}           
-               placeholder='Search Users' 
+<SearchWidget 
+                value={text} 
+                onChange={(e) => setText(e.target.value)}
+                placeholder='Search Users'
             />
 
             { posts.length>0 && <WidgetsPhoto posts={posts}/>}
 
-            <WidgetsFollow />
+            <WidgetsFollow searchText={text} />
 
             {/* <WidgetsTrends /> */}
             

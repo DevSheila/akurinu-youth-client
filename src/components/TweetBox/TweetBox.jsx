@@ -71,7 +71,7 @@ const TweetBox = () => {
 
         
          // Validation check for radio buttons
-        if (!radioOption && user.userType === 'admin') {
+        if (!radioOption && (user.userType === 'super' || user.userType === 'admin')) {
             // If text message is empty, display a warning message
             setIsloading(false);
             setRadioError('Please select an option');
@@ -249,7 +249,7 @@ const TweetBox = () => {
                             </textarea>
 
 
-                            {user.userType === 'admin' && (
+                            {(user.userType === 'super' || user.userType === 'admin') && (
                             <div className="radio-container">
                                 <h3>Choose Post Type</h3>
                                 <label>

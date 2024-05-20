@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import {useParams} from 'react-router'
 import {useHistory} from 'react-router-dom'
-import {Link} from 'react-router-dom'
 
 import Popover from '@material-ui/core/Popover'
 import FooterIcon from '../Post/FooterIcon'
 import Like from '../Post/Like'
 import Reply from '../Reply/Reply'
 import Modal from '../../elements/Modal/Modal'
+import {Link} from 'react-router-dom'
 
 import {Avatar} from '@material-ui/core'
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser'
@@ -35,19 +35,15 @@ import db from '../../firebase'
 const StatusPost = ({status, comments}) => {
    const {postId} = useParams()
    const [{user}] = useStateValue()
-   // const [profile, setProfile] = useState({id:'',displayName:'', photoURL: '', verified: false, username: '', followers: [], following: []})
-   // const {displayName, username, photoURL, verified} = profile
-   const [profile, setProfile] = useState({id:'',displayName:'',userType:'', photoURL: '', verified: false, username: '', followers:[], following:[]})
+   const [profile, setProfile] = useState({id:'',displayName:'', userType:'',photoURL: '', verified: false, username: '', followers: [], following: []})
    const {displayName, username, photoURL, verified,userType} = profile
-
    const {
       altText,
       text,
       image,
       timestamp,
       senderId,
-      likes,
-      postType
+      likes
    } = status
 
    const date = convertTimestampToLocaleString(timestamp)
@@ -117,23 +113,22 @@ const StatusPost = ({status, comments}) => {
 
       <div className='statusPost'>
       <div className='post bottomWhited'>
-      <Link to={`/profile/${displayName}`}> 
          <div className="post__avatar">
-            <Avatar src={photoURL} />
+            <Link to={displayName ? `/profile/${displayName}` : `/notfound`}><Avatar src={photoURL} /></Link>
+
          </div>
-         </Link>
          <div className="post__body">
             <div className="post__header">
                <div className="post__headerText">
                   <div className="post__statusPostHeader">
-                  <Link to={`/profile/${displayName}`}> 
-                     <h3>{displayName} 
-                     {userType === 'admin' && <VerifiedUserIcon className='post__badge'/>} 
-                      </h3>                    
+                     <h3>
+                        {displayName}{(userType === 'super' || userType === 'admin') && <VerifiedUserIcon className='post__badge'/>} 
+                     </h3>   
+                     
+                                      
                      <span className='post__headerSpecial'> 
                         {username && `@${username} `} 
                      </span> 
-                     </Link>
                   </div>
 
                   <div className="post__headerExpandIcon"  aria-describedby={id} variant="contained" onClick={onClickExpand} >
@@ -156,16 +151,16 @@ const StatusPost = ({status, comments}) => {
                   >
                      <ul className="post__expandList">
                      {
-                        senderId === user.id?
+                        (senderId === user.id || user.userType === 'super')?
                         <>
                            <li onClick={deleteMyPost}>
                               <div className='delete'><DeleteOutlineIcon /></div><h3 className="delete">Delete</h3>
                            </li>
-                          
+                     
                         </>
                         :
                         <>
-
+                 
                            {
                               isFollowing?
                                  <li onClick={unfollowUser}>
@@ -175,7 +170,7 @@ const StatusPost = ({status, comments}) => {
                                  <div><PersonAddIcon /></div><h3>Follow {`@${username}`}</h3>
                                  </li>
                            }
-                           
+                          
                         </>
                      }
                      </ul>
@@ -184,7 +179,6 @@ const StatusPost = ({status, comments}) => {
             </div>
 
          </div>
-         
       </div>
 
       <div className='statusPost__body'>
@@ -193,32 +187,17 @@ const StatusPost = ({status, comments}) => {
          <div className="statusPost__body--date">{timestamp && util.timeDiff(date)}</div>
       </div>
 
-      {/* {userType === 'admin' && <VerifiedUserIcon className='post__badge'/>}  */}
-
-      {/* {src && (
-              <ReactCrop
-                src={src}
-                crop={crop}
-                ruleOfThirds
-                onImageLoaded={this.onImageLoaded}
-                onComplete={this.onCropComplete}
-                onChange={this.onCropChange}
-              />
-            )}    */}
-
-   {userType === 'post' && (
       <div className="statusPost__footer">
          <div className="post__footer">
             <FooterIcon Icon={ChatBubbleOutlineIcon} value={comments.length} onClick={()=>setIsOpenModal(true)}/>
-            <FooterIcon Icon={RepeatIcon} value={0}/>
+            {/* <FooterIcon Icon={RepeatIcon} value={0}/> */}
             <Like likes={likes} 
                   likeAction= {()=>like(postId, user.id)}
                   unlikeAction = {()=>unlike(postId, user.id)}
             />
-            <FooterIcon Icon={PublishIcon} value={0}/>
+            {/* <FooterIcon Icon={PublishIcon} value={0}/> */}
          </div>         
       </div>
-   )} 
 
       </div>
    </>

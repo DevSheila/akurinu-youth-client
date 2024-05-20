@@ -53,6 +53,7 @@ const Feed = () => {
           setLoading(false)
         })
       }
+      setLoading(false)
     }, [profile])
 
     const items = [
@@ -84,6 +85,7 @@ const Feed = () => {
         // }
     ]
 
+    
     return (
         <div className='feed'>
            <div className="profile__header">

@@ -17,8 +17,6 @@ const Status = () => {
     const history = useHistory()
     const {postId} = useParams()
 
-
-    
     useEffect(() => {
       let mounted = true
       if(postId){
@@ -52,12 +50,10 @@ const Status = () => {
          })
       }
 
-
       return () => mounted = false
 
     }, [status])
 
-    
     return (
         <div className='feed'>
            <div className="status__header">

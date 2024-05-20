@@ -25,7 +25,7 @@ import {useStateValue} from './contexts/StateContextProvider'
 import {actionTypes} from './contexts/StateReducers'
 import GoogleAuth from './components/GoogleAuth/GoogleAuth'
 // import SideBarOveraly from './components/SideBarOveraly/SideBarOveraly'
-import MultiStepLogin from './components/MultiStepLogin/MultiStepLogin'
+// import MultiStepLogin from './components/MultiStepLogin/MultiStepLogin'
 
 
 const App = () => {
