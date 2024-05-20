@@ -6,16 +6,26 @@ import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone'
 import MailOutlineIcon from '@material-ui/icons/MailOutline'
 import PermIdentityIcon from '@material-ui/icons/PermIdentity'
 import LogoutIcon from '@mui/icons-material/Logout';
+import {useHistory} from 'react-router'
 
 import './BottomNav.css'
 import { useStateValue } from '../../contexts/StateContextProvider'
 
 const BottomNav = () => {
   const [{user}] = useStateValue()
+  const history = useHistory()
+
 
 
   const text="profile";
   const profileLink = `${text.toLowerCase()}/${user.username}`;  
+      
+  const signout = () => {
+    localStorage.clear()
+    // window.location.push('/')
+    history.push('/')
+    window.location.reload()
+}
 
   return (
     <div className="bottomNav">
