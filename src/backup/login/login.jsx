@@ -8,16 +8,21 @@ import validate from '../../helpers/inputValidator'
 import {actionTypes} from '../../contexts/StateReducers'
 import {useStateValue} from '../../contexts/StateContextProvider'
 import {useHistory} from 'react-router'
+
+
 import bcrypt from 'bcryptjs';
+
 import CheckCircleIcon from '@material-ui/icons/Check'
 import Loader from '../../elements/Loader/Loader'
-import './MultiStepLogin.css'
+import '../MultiStepLogin/MultiStepLogin.css'
+
+
 import counties from '../../helpers/counties.json';
 import fieldsOfExpertiseData from '../../helpers/fieldsOfExpertise.json';
 import axios from 'axios';
 const Login = () => {
     const [auth, setAuth] = useState(false)         // a state to change auth mode
-    const [isLogin, setIsLogin] = useState(true)         // a state to change auth mode
+    const [isLogin, setIsLogin] = useState(false)         // a state to change auth mode
     const initialSignup = {
         name            : '',
         username        : '',
@@ -35,6 +40,7 @@ const Login = () => {
     const [error, setError] = useState('')
     const [isSigning, setIsSigning] = useState(false)
 
+
     const steps = ['Basic', 'Contact', 'Address', 'Disipline', 'Church', 'Account'];
     const [formErrors, setFormErrors] = useState({});
     const [currentStep, setCurrentStep] = useState(1);
@@ -46,7 +52,6 @@ const Login = () => {
       firstName: '',
       lastName: '',
       email: '',
-      ageGroup: '',
       phoneNumber: '',
       county: '',
       academicLevel: '',
@@ -59,19 +64,7 @@ const Login = () => {
       confirmPassword: '',
     });
 
-    const ageGroups = [
-      '14-17',
-      '18-24',
-      '25-34',
-      '35-44',
-      '45-54',
-      '55-64',
-      '65-74',
-      '75-84',
-      '85-94',
-      '95-100'
-    ];
-    
+
     const cleanupState = () => {
         setIsSigning(false)
         setSignupState(initialSignup)
@@ -138,7 +131,6 @@ const Login = () => {
                 }
             })
             .catch(error=>{
-                console.error(" login error",error)
                 setLoading(false)
                 setError('An error occured, please try again')
                 return
@@ -202,8 +194,7 @@ const Login = () => {
 
 
     
-  // const validateInputs = (step) => {
-    const validateInputs = async (step) => {
+  const validateInputs = (step) => {
     let isValid = true;
     const errors = {};
 
@@ -217,12 +208,6 @@ const Login = () => {
         isValid = false;
         errors.lastName = 'Last Name is required';
       }
-
-      
-      if (!formData.ageGroup.trim()) {
-        isValid = false;
-        errors.ageGroup = 'Age Group is required';
-      }
     }
 
     if (step === 2) {
@@ -231,20 +216,7 @@ const Login = () => {
         errors.email = 'Email is required';
       } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
         isValid = false;
-        errors.email = 'Email address is invalid. Use format john@gmail.com';
-      } else {
-        // Check if email already exists
-        try {
-          const response = await axios.get(`http://127.0.0.1:8080/api/members/email/${formData.email}`);
-          console.log("email",response)
-          if (response.data) {
-            isValid = false;
-            errors.email = 'Email already exists';
-          }
-        } catch (error) {
-          console.error('Error checking email existence:', error);
-          // Handle error if necessary
-        }
+        errors.email = 'Email address is invalid.Use format john@gmail.com';
       }
 
       if (!formData.phoneNumber.trim()) {
@@ -328,17 +300,13 @@ const Login = () => {
   };
 
 
-
-
-  const handleNext = async (e) => {
+  const handleNext = (e) => {
     e.preventDefault();
-    const isValid = await validateInputs(currentStep);
-    if (isValid) {
+    if (validateInputs(currentStep)) {
       setCurrentStep((prevStep) => prevStep + 1);
     }
   };
 
-  
   
 
   const postMemberToMySQL = async (memberData) => {
@@ -346,7 +314,7 @@ const Login = () => {
     try {
       console.log("memberData",memberData);
 
-      const response = await axios.post('http://127.0.0.1:8080/api/members', memberData , {
+      const response = await axios.post('https://api.akurinuyouth.com/api/members', memberData , {
         headers: {
           'Content-Type': 'application/json',
         }
@@ -376,7 +344,6 @@ const Login = () => {
             userType:'',
             displayName: formData.username,
             email:formData.email,
-            ageGroup:formData.ageGroup,
             followers: [],
             following: [],
             joined: firebase.firestore.FieldValue.serverTimestamp(),
@@ -401,7 +368,6 @@ const Login = () => {
               firstName: '',
               lastName: '',
               email: '',
-              ageGroup: '',
               phoneNumber: '',
               county: '',
               academicLevel: '',
@@ -422,7 +388,6 @@ const Login = () => {
           "firstName": formData.firstName,
           "lastName": formData.lastName,
           "email": formData.email,
-          "ageGroup": formData.ageGroup,
           "password":hashedPassword,
           "phone": formData.phoneNumber,
           "county": formData.county,
@@ -537,25 +502,6 @@ const Login = () => {
                                     </div>
                                     {formErrors.lastName && <h3 className="multi-form-error">{formErrors.lastName}</h3>}
 
-
-                                    <div className="multi-form-field">
-                                      <div className="multi-form-label">Age Group</div>
-                                      <select
-                                        name="ageGroup"
-                                        value={formData.ageGroup}
-                                        onChange={handleInputChange}
-                                        className={formErrors.ageGroup ? 'multi-form-invalid-input' : ''}
-                                        required
-                                      >
-                                        <option value="">Select Age Group</option>
-                                        {ageGroups.map((ageGroup, index) => (
-                                          <option key={index} value={ageGroup}>{ageGroup}</option>
-                                        ))}
-                                      </select>
-                                    </div>
-                                    {formErrors.ageGroup && <h3 className="multi-form-error">{formErrors.ageGroup}</h3>}
-
-    
 
                                     <div className="multi-form-field">
                                         <button className="multi-form-firstNext multi-form-next" onClick={handleNext}>Next</button>
@@ -785,33 +731,32 @@ const Login = () => {
                 </div>        
             </section>
                }
+        {isLogin &&
 
-              {isLogin &&
+            <section className='login__section'>
+            <div className={`login__container ${auth ? 'active': ''}`}>
+            <div className="user signinBc">
+                <div className="imgBc"><img src={backdrop} alt='backdrop' /></div>
+                <div className="formBc">
 
-              <section className='login__section'>
-              <div className={`login__container ${auth ? 'active': ''}`}>
-              <div className="user signinBc">
-                  <div className="imgBc"><img src={backdrop} alt='backdrop' /></div>
-                  <div className="formBc">
+                    <form autoComplete="off" onSubmit={onSubmitLogin}>
+                {/* <img className="multi-form-logo" src="/akurinuyouth-logo.jpg" alt="modal-img" /> */}
+                        <h2>Log In</h2>
+                        <input type="email"    name='email'    placeholder='Email'    value={loginState.email}    onChange={e=>setLoginState({...loginState, email:e.target.value})}/>
+                        <input type="password" name='password' placeholder='Password' value={loginState.password} onChange={e=>setLoginState({...loginState, password:e.target.value})} required/>
+                        <button type='submit' className='button'>{loading? <Spinner /> : 'Log in'}</button>
+                        {error.length>0 && <div className='error'>{error}</div>}
+                        <p className="signup">Don't have an account? <span onClick={()=>setIsLogin(false)}>Sign up</span></p>
+                    </form>
+                </div>
+            </div>
+            </div>        
+            </section>
+            }
+        </>
 
-                      <form autoComplete="off" onSubmit={onSubmitLogin}>
-                  {/* <img className="multi-form-logo" src="/akurinuyouth-logo.jpg" alt="modal-img" /> */}
-                          <h2>Log In</h2>
-                          <input type="email"    name='email'    placeholder='Email'    value={loginState.email}    onChange={e=>setLoginState({...loginState, email:e.target.value})}/>
-                          <input type="password" name='password' placeholder='Password' value={loginState.password} onChange={e=>setLoginState({...loginState, password:e.target.value})} required/>
-                          <button type='submit' className='button'>{loading? <Spinner /> : 'Log in'}</button>
-                          {error.length>0 && <div className='error'>{error}</div>}
-                          <p className="signup">Don't have an account? <span onClick={()=>setIsLogin(false)}>Sign up</span></p>
-                      </form>
-                  </div>
-              </div>
-              </div>        
-              </section>
-              }
-</>
-
-)
-
+    )
+    
 }
 
 

@@ -31,6 +31,7 @@ const MultiStepLogin = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
+    ageGroup: '',
     email: '',
     phoneNumber: '',
     county: '',
@@ -46,6 +47,20 @@ const MultiStepLogin = () => {
 
   
 
+  const ageGroups = [
+    '14-17',
+    '18-24',
+    '25-34',
+    '35-44',
+    '45-54',
+    '55-64',
+    '65-74',
+    '75-84',
+    '85-94',
+    '95-100'
+  ];
+
+  
   // setSignupMessage("signed up successfully")
   const history = useHistory()
   const redirectTo = () => {
