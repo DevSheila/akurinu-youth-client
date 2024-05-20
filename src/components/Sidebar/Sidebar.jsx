@@ -11,7 +11,6 @@ import ListAltIcon from '@material-ui/icons/ListAlt'
 import PermIdentityIcon from '@material-ui/icons/PermIdentity'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import PanoramaFishEyeIcon from '@material-ui/icons/PanoramaFishEye'
-import DashboardIcon from '@mui/icons-material/Dashboard';
 
 import {useRoomState} from '../../contexts/IsRoomOpenedContextProvider'
 import {actionTypes} from '../../contexts/IsRoomOpenedReducers'
@@ -33,7 +32,7 @@ const Sidebar = () => {
             <img src="/akurinuyouth-logo.jpg" className='sidebar__logo'/> */}
            <SidebarOption text='Home' Icon={HomeIcon} />
            <SidebarOption text='Profile' Icon={PermIdentityIcon} />
-           <SidebarOption text='Portal' Icon={DashboardIcon} />
+           <SidebarOption text='Portal' Icon={PanoramaFishEyeIcon} />
 
         {/* 
            <button variant='outlined' className='sidebar__tweet'>
