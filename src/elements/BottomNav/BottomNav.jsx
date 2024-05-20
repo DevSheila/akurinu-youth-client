@@ -7,8 +7,6 @@ import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone'
 import MailOutlineIcon from '@material-ui/icons/MailOutline'
 import PermIdentityIcon from '@material-ui/icons/PermIdentity'
 
-// import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
-// import DashboardIcon from '@mui/icons-material/Dashboard';
 
 import './BottomNav.css'
 import { useStateValue } from '../../contexts/StateContextProvider'

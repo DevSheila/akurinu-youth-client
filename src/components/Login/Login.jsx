@@ -15,8 +15,6 @@ import './MultiStepLogin.css'
 import counties from '../../helpers/counties.json';
 import fieldsOfExpertiseData from '../../helpers/fieldsOfExpertise.json';
 
-// import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
-// import DashboardIcon from '@mui/icons-material/Dashboard';
 import axios from 'axios';
 const Login = () => {
     const [auth, setAuth] = useState(false)         // a state to change auth mode

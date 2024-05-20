@@ -19,7 +19,6 @@ const SidebarAccount = () => {
     const open = Boolean(anchorEl)
     const id = open ? 'post-popover' : undefined
 
-    
     const signout = () => {
         localStorage.clear()
         // window.location.push('/')
