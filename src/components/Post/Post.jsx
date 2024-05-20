@@ -151,21 +151,11 @@ const Post = forwardRef(({
                               <li onClick={()=>deletePost(postId)}>
                                  <div className='delete'><DeleteOutlineIcon /></div><h3 className="delete">Delete</h3>
                               </li>
-                              <li>
-                                 <div><PlaceIcon /></div><h3>Pin to your profile</h3>
-                              </li>
-                              <li>
-                                 <div><CodeIcon /></div><h3>Embed Post</h3>
-                              </li>
-                              <li>
-                                 <div><BarChartIcon /></div><h3>View Post activity</h3>
-                              </li>
+
                            </>
                            :
                            <>
-                              <li>
-                                 <div><SentimentVeryDissatisfiedIcon /></div><h3>Not interested in this tweet</h3>
-                              </li>
+
                               {
                                  isFollowing?
                                     <li onClick={()=>unfollow(user.id, senderId)}>
@@ -175,15 +165,7 @@ const Post = forwardRef(({
                                        <div><PersonAddIcon /></div><h3>Follow {`@${username}`}</h3>
                                     </li>
                               }
-                              <li>
-                                 <div><PostAddIcon /></div><h3>Add/remove from Lists</h3>
-                              </li>
-                              <li>
-                                 <div><BlockIcon /></div><h3>Block {`@${username}`}</h3>
-                              </li>
-                              <li>
-                                 <div><CodeIcon /></div><h3>Embed Post</h3>
-                              </li>
+
                            </>
                         }
                         </ul>
