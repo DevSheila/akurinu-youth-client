@@ -193,13 +193,13 @@ const Post = forwardRef(({
 
                <div className="post__footer">
                   <FooterIcon Icon={ChatBubbleOutlineIcon} value={comments.length} onClick={()=>setIsOpenModal(true)}/>
-                  {/* <FooterIcon Icon={RepeatIcon} value={0}/> */}
+                  <FooterIcon Icon={RepeatIcon} value={0}/>
                   <Like 
                         likes={likes}
                         unlikeAction = {()=>unlike(postId, user.id)}
                         likeAction = {()=>like(postId, user.id)}
                   />
-                  {/* <FooterIcon Icon={PublishIcon} value={0}/> */}
+                  <FooterIcon Icon={PublishIcon} value={0}/>
                </div>
             </div>
 
