@@ -14,9 +14,12 @@ import PanoramaFishEyeIcon from '@material-ui/icons/PanoramaFishEye'
 
 import {useRoomState} from '../../contexts/IsRoomOpenedContextProvider'
 import {actionTypes} from '../../contexts/IsRoomOpenedReducers'
+import {useHistory} from 'react-router'
 import './Sidebar.css'
 
 const Sidebar = () => {
+    const history = useHistory()
+
     const [{isRoomOpened}, dispatch] = useRoomState()
     const closeAllRooms= () => {
         dispatch({
@@ -25,6 +28,12 @@ const Sidebar = () => {
         if(isRoomOpened){}        
     }
     
+    const signout = () => {
+        localStorage.clear()
+        // window.location.push('/')
+        history.push('/')
+        window.location.reload()
+    }
 
     return (
         <div className='sidebar'>

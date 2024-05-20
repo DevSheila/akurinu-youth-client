@@ -5,7 +5,7 @@ import PanoramaFishEyeIcon from '@material-ui/icons/PanoramaFishEye'
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone'
 import MailOutlineIcon from '@material-ui/icons/MailOutline'
 import PermIdentityIcon from '@material-ui/icons/PermIdentity'
-
+import LogoutIcon from '@mui/icons-material/Logout';
 
 import './BottomNav.css'
 import { useStateValue } from '../../contexts/StateContextProvider'
@@ -22,6 +22,9 @@ const BottomNav = () => {
        <nav>
           <NavLink exact to='/' activeClassName='bottomNav__active'><HomeIcon /><h2 className="bottomNav__text">Home</h2></NavLink>
           <NavLink to={`/${profileLink}`} activeClassName='bottomNav__active'><PermIdentityIcon /><h2 className="bottomNav__text">Profile</h2></NavLink>
+          <div onClick={signout} activeClassName='bottomNav__active'><LogoutIcon /><h2 className="bottomNav__text">Logout</h2></div>
+
+          
           <a href="https://akurinuyouth.com/portal" activeClassName='bottomNav__active' target='_blank' rel='noopener noreferrer'><PanoramaFishEyeIcon /> <h2 className="bottomNav__text">Portal</h2></a>
        </nav>
     </div>

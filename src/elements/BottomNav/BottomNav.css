@@ -27,6 +27,7 @@
     color: var(--twittie-light);
 }
 
+
 .bottomNav__active .MuiSvgIcon-root{
     color: var(--twittie-darker-color) !important;
 }
