@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import {useParams} from 'react-router'
-import {useHistory} from 'react-router'
-import Loader from '../../elements/Loader/Loader';
 
 import CloseIcon from '@material-ui/icons/Close'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
@@ -25,11 +23,10 @@ import {follow, unfollow} from '../../server/serverActions'
 import './ProfileTheme.css'
 
 const ProfileTheme = ({posts}) => {
-    const [profile, setProfile] = useState({bio:'', userType:'' , displayName:'', followers: [], following:[], location:'', photoURL:'', website:'' })
+    const [profile, setProfile] = useState({bio:'', displayName:'', followers: [], following:[], location:'', photoURL:'', website:'' })
 
     const [{user}] = useStateValue()
     const {username} = useParams()
-    const history = useHistory()
 
     const [updatedProfileState, setUpdatedProfileState] = useState({})
     const [finalPhoto, setFinalPhoto] = useState(null)
@@ -37,7 +34,6 @@ const ProfileTheme = ({posts}) => {
     const [isPhotoReady, setIsPhotoReady] = useState(false)
     const [isWallpaperReady, setIsWallpaperReady] = useState(false)
     const [isUpdating, setIsUpdating] = useState(false)
-    const [loading, setLoading] = useState(false);
 
     const [isOpenModal, setIsOpenModal] = useState(false)
     let isMe = (profile && profile.id) === user.id?true: false
@@ -51,17 +47,6 @@ const ProfileTheme = ({posts}) => {
         setOpenImage(true)        
     }
     const handleCloseImage = () => setOpenImage(false)
-
-
-    const signout = () => {
-        history.push('/logout')
-
-        // setLoading(true)
-        // localStorage.clear()
-        // history.push('/')
-        // setLoading(false)
-        // window.location.reload()
-    }
 
     useEffect(() => {
       db.collection('users').where('username', '==', username).onSnapshot(snapshot=>{
@@ -117,12 +102,11 @@ const ProfileTheme = ({posts}) => {
     useEffect(() => {
         console.log(`isPhotoReady: ${isPhotoReady}, isWallpaperReady: ${isWallpaperReady}`)
         if(isPhotoReady && isWallpaperReady){
-            const {displayName, bio, userType, location, website} = updatedProfileState.profileState
+            const {displayName, bio, location, website} = updatedProfileState.profileState
             const doUpdate = () => {
                 db.collection('users').doc(user.id).update({
                     displayName,
                     bio,
-                    userType,
                     location,
                     website,
                     photoURL: finalPhoto,
@@ -165,8 +149,6 @@ const ProfileTheme = ({posts}) => {
                 imgsrc={imgsrc}
             />
 
-            {loading && <div className="feed__loader"><Loader /></div>}
-
             <div className='userProfile'>
                 <div className="userProfile__theme" style={{backgroundImage: `url(${profile && profile.wallpaper})`}} >
                     <div className="photoWrapper" >
@@ -176,13 +158,12 @@ const ProfileTheme = ({posts}) => {
 
                 <div className="infoWrapper">
                     <div className="userProfile__actions">
-                        <div className="moreWrapper" onClick={signout}>
+                        <div className="moreWrapper">
                             <MoreHorizIcon />
                         </div>
-
-                        {/* { !isMe && <div className="mailWrapper">
+                        { !isMe && <div className="mailWrapper">
                             <MailOutlineIcon />
-                        </div> }                      */}
+                        </div> }                     
                         { isMe? 
                         <div className="followWrapper" onClick={()=>setIsOpenModal(true)}>
                             Edit Profile
@@ -191,7 +172,7 @@ const ProfileTheme = ({posts}) => {
                             (
                             isFollowing?
                                 <div className="followWrapper" onClick={()=>unfollow(user.id, profile.id)}>
-                                    UnFollow
+                                    Followed
                                 </div>
                             :
                                 <div className="followWrapper" onClick={()=>follow(user.id, profile.id)}>
@@ -203,9 +184,7 @@ const ProfileTheme = ({posts}) => {
 
                     <h2>{profile&& profile.displayName}</h2>
                     {username && <span>{`@${username}`}</span>}
-                    {profile && <p>{profile.bio}</p>} 
-                    {profile && <p>{profile.userType}</p>}
-
+                    {profile && <p>{profile.bio}</p>}
 
                     <div className="bioInfo">
                         {(profile && profile.location) && <div> <PlaceIcon /> <span>{profile.location}</span></div>}
