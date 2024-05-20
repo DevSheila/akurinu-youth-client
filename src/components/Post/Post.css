@@ -13,8 +13,13 @@
     flex: 1;
     padding: 1rem;
 }
+.imgContainer{
+    width: 50%;
+    height: 50%;
 
-.post__body> img{
+}
+
+.imgContainer> img{
     border-radius: 2rem;
     width: 100%;
     height: auto;
