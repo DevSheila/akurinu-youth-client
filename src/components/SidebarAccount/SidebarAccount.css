@@ -41,6 +41,6 @@
 
 @media screen and (max-width: 1282px){
     .sidebarAccount__userData, .sidebarAccount__expandIcon {
-        display: none;
+        /* display: none; */
     } 
 }

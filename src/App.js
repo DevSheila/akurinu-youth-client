@@ -14,6 +14,7 @@ import ProfileFollow  from './components/ProfileFollow/ProfileFollow'
 import Status from './components/Status/Status'
 import CommentThread from './components/CommentThread/CommentThread'
 import StatusWidget from './components/StatusWidget/StatusWidget'
+import Logout from './components/Logout/Logout'
 
 import BottomNav from './elements/BottomNav/BottomNav'
 
@@ -96,6 +97,14 @@ const App = () => {
 
                 </div> 
             </Route>
+
+            <Route exact path='/logout'>
+                <div className="app__main">
+                  <Logout/>
+                  
+                </div>         
+            </Route>
+
 
           </Switch>
         </div>

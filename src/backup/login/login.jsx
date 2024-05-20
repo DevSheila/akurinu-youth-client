@@ -9,7 +9,6 @@ import {actionTypes} from '../../contexts/StateReducers'
 import {useStateValue} from '../../contexts/StateContextProvider'
 import {useHistory} from 'react-router'
 
-
 import bcrypt from 'bcryptjs';
 
 import CheckCircleIcon from '@material-ui/icons/Check'

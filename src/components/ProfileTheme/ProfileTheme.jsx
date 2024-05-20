@@ -37,6 +37,7 @@ const ProfileTheme = ({posts}) => {
     const [isPhotoReady, setIsPhotoReady] = useState(false)
     const [isWallpaperReady, setIsWallpaperReady] = useState(false)
     const [isUpdating, setIsUpdating] = useState(false)
+    const [loading, setLoading] = useState(false);
 
     const [isOpenModal, setIsOpenModal] = useState(false)
     let isMe = (profile && profile.id) === user.id?true: false
@@ -51,11 +52,15 @@ const ProfileTheme = ({posts}) => {
     }
     const handleCloseImage = () => setOpenImage(false)
 
+
     const signout = () => {
-        localStorage.clear()
-        // window.location.push('/')
-        history.push('/')
-        window.location.reload()
+        history.push('/logout')
+
+        // setLoading(true)
+        // localStorage.clear()
+        // history.push('/')
+        // setLoading(false)
+        // window.location.reload()
     }
 
     useEffect(() => {

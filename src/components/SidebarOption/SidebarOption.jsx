@@ -11,6 +11,7 @@ const SidebarOptions = ({active, text, Icon, onClick}) => {
     const isPortal = text === 'Portal'
     const redirect =  isHome ? '': (isProfile?`${text.toLowerCase()}/${user.username}`:text.toLowerCase())   
 
+    
     return (
         <>
         {isPortal ? (
