@@ -1,7 +1,6 @@
 import React, {useState, forwardRef, useEffect} from 'react'
 import {Avatar} from '@material-ui/core'
 import {useHistory} from 'react-router'
-import {Link} from 'react-router-dom'
 
 import FooterIcon from './FooterIcon'
 import Reply from '../Reply/Reply'
@@ -52,11 +51,10 @@ const Post = forwardRef(({
    const id = open ? 'post-popover' : undefined
    const [isOpenModal, setIsOpenModal] = useState(false)
 
-   
    const [{user}] = useStateValue()
-   const [profile, setProfile] = useState({id:'',displayName:'',userType:'', photoURL: '', verified: false, username: '', followers:[], following:[]})
+   const [profile, setProfile] = useState({id:'',displayName:'', photoURL: '', verified: false, username: '', followers:[], following:[]})
    const [ownProfile, setOwnProfile] = useState(null)
-   const {displayName, username, photoURL, verified,userType} = profile
+   const {displayName, username, photoURL, verified} = profile
 
    const [comments, setComments] = useState([])
 
@@ -115,25 +113,18 @@ const Post = forwardRef(({
          </Modal>
 
          <div className='post' ref={ref}>
-            <Link to={`/profile/${displayName}`}>    
-               <div className="post__avatar">
-                  <Avatar src={photoURL} />
-               </div>
-            </Link>
-
+            <div className="post__avatar">
+               <Avatar src={photoURL} />
+            </div>
             <div className="post__body">
                <div className="post__header">
                   <div className="post__headerText">
-                     <Link to={`/profile/${displayName}`}>  
-                        <h3>{displayName} {' '}
-                           <span className='post__headerSpecial'> 
-                           
-                                 {userType === 'admin' && <VerifiedUserIcon className='post__badge'/>} 
-                           
-                                 @{`${username} . ${timestamp && util.timeDiff(date)}`}
-                           </span>
-                        </h3>
-                     </Link>
+                     <h3>{displayName} {' '}
+                        <span className='post__headerSpecial'> 
+                              {verified && <VerifiedUserIcon className='post__badge'/>} 
+                              @{`${username} . ${timestamp && util.timeDiff(date)}`}
+                        </span>
+                     </h3>
                      <div className="post__headerExpandIcon" aria-describedby={id} variant="contained" onClick={onClickExpand } >
                         <ExpandMoreIcon />
                      </div>
@@ -160,11 +151,21 @@ const Post = forwardRef(({
                               <li onClick={()=>deletePost(postId)}>
                                  <div className='delete'><DeleteOutlineIcon /></div><h3 className="delete">Delete</h3>
                               </li>
-                             
+                              <li>
+                                 <div><PlaceIcon /></div><h3>Pin to your profile</h3>
+                              </li>
+                              <li>
+                                 <div><CodeIcon /></div><h3>Embed Post</h3>
+                              </li>
+                              <li>
+                                 <div><BarChartIcon /></div><h3>View Post activity</h3>
+                              </li>
                            </>
                            :
                            <>
-                              
+                              <li>
+                                 <div><SentimentVeryDissatisfiedIcon /></div><h3>Not interested in this tweet</h3>
+                              </li>
                               {
                                  isFollowing?
                                     <li onClick={()=>unfollow(user.id, senderId)}>
@@ -174,7 +175,15 @@ const Post = forwardRef(({
                                        <div><PersonAddIcon /></div><h3>Follow {`@${username}`}</h3>
                                     </li>
                               }
-                              
+                              <li>
+                                 <div><PostAddIcon /></div><h3>Add/remove from Lists</h3>
+                              </li>
+                              <li>
+                                 <div><BlockIcon /></div><h3>Block {`@${username}`}</h3>
+                              </li>
+                              <li>
+                                 <div><CodeIcon /></div><h3>Embed Post</h3>
+                              </li>
                            </>
                         }
                         </ul>
@@ -186,23 +195,17 @@ const Post = forwardRef(({
                   </div>
                </div>
 
-                     <div className="imgContainer">
-                     { image.length>0 && <img src={image} alt={altText} onClick={()=>redirectToStatus(postId)} />}
-
-                     </div>
+               { image.length>0 && <img src={image} alt={altText} onClick={()=>redirectToStatus(postId)} />}
 
                <div className="post__footer">
                   <FooterIcon Icon={ChatBubbleOutlineIcon} value={comments.length} onClick={()=>setIsOpenModal(true)}/>
-                  {/* <FooterIcon Icon={RepeatIcon} value={0}/> */}
-                  <FooterIcon Icon={} value={0}/>
+                  <FooterIcon Icon={RepeatIcon} value={0}/>
                   <Like 
                         likes={likes}
                         unlikeAction = {()=>unlike(postId, user.id)}
                         likeAction = {()=>like(postId, user.id)}
                   />
-                  {/* <FooterIcon Icon={PublishIcon} value={0}/> */}
-                  <FooterIcon Icon={} value={0}/>
-
+                  <FooterIcon Icon={PublishIcon} value={0}/>
                </div>
             </div>
 
